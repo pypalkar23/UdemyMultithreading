@@ -1,4 +1,4 @@
-package com.example2;
+package com.threadInheritance;
 
 
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class Main {
         public void run(){
             for (int i=0;i<10;i++){
                 try{
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 }
                 catch(InterruptedException e){
                     System.out.println("Thread Interrupted");

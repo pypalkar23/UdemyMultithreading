@@ -1,4 +1,4 @@
-package com.thread.join;
+package com.fundamentalscoordination.join;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ public class Main {
             thread.start();
         }
         for(Thread thread: threads){
+            //milisecond till main thread will wait for the other one
             thread.join(1000);
         }
 

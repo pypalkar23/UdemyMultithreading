@@ -1,4 +1,4 @@
-package com.thread.interrupt.exception;
+package com.fundamentalscoordination.interrupt.exception;
 
 public class Main {
     public static void main(String[] args) {
