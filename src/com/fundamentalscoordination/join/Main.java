@@ -19,7 +19,7 @@ public class Main {
             thread.start();
         }
         for(Thread thread: threads){
-            //milisecond till main thread will wait for the other one
+            //miliseconds till main thread will wait for the other one
             thread.join(1000);
         }
 
@@ -29,6 +29,7 @@ public class Main {
                 System.out.println("Factorial of "+ inputNumbers.get(i)+" is "+ factorialThread.getResult());
             }
             else{
+
                 System.out.println("Factorial calculation of "+ inputNumbers.get(i)+ " is still in progress");
             }
 
