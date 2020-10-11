@@ -37,8 +37,9 @@ public class Main
 			}
 			else
 			{
-				System.out.println(String.format("Factorial of %d is in still progress hence interrupting", inputNumbers.get(i)));
+				System.out.println(String.format("Factorial of %d is in still progress hence interrupting result:%d", inputNumbers.get(i),factorialThread.getResult()));
 				factorialThread.interrupt();
+
 			}
 
 		}
