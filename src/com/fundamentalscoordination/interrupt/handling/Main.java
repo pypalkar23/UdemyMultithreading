@@ -6,13 +6,14 @@ public class Main
 {
 	public static void main(String[] args) throws InterruptedException
 	{
-     /*Thread thread = new Thread(new LongBlockingTask(new BigInteger("200000"),new BigInteger("200000")));
+     Thread thread = new Thread(new LongBlockingTask(new BigInteger("200000"),new BigInteger("200000")));
+     thread.setName("LongBlockingTask");
      thread.start();
-     Thread.sleep(5000);
-     thread.interrupt();*/
-		Thread thread = new Thread(new SleepingThread());
-		thread.start();
-		thread.interrupt();
+     Thread.sleep(1000);
+     thread.interrupt();
+     Thread thread1 = new Thread(new SleepingThread());
+     thread1.start();
+     thread1.interrupt();
 	}
 
 	public static class LongBlockingTask implements Runnable
@@ -27,6 +28,8 @@ public class Main
 			this.power = power;
 		}
 
+
+
 		public BigInteger pow(BigInteger base, BigInteger power)
 		{
 			BigInteger result = BigInteger.ONE;
@@ -34,6 +37,7 @@ public class Main
 			for (BigInteger i = BigInteger.ZERO; i.compareTo(power) != 0; i = i.add(BigInteger.ONE))
 			{
 				System.out.println(i);
+				//If not for this block thread keeps on running even when interrupted
 				if (Thread.currentThread().isInterrupted())
 				{
 					System.out.println("Prematurely ended");
@@ -58,6 +62,7 @@ public class Main
 		@Override
 		public void run()
 		{
+			//Another way to handle interrupt
 			while (true)
 			{
 				try
