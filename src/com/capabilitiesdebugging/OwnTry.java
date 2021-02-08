@@ -18,7 +18,7 @@ public class OwnTry
 		for (int i = 0; i < THREADS; i++)
 		{
 			//sleep time is  between 1 to 5 seconds;
-			int sleepTime = (random.nextInt((MAX - MIN) + 1) + MIN)*1000;
+			int sleepTime = (random.nextInt((MAX - MIN) + 1) + MIN) * 1000;
 			Thread t = new Thread(new RunnableExpt(i, sleepTime));
 			t.start();
 		}
@@ -55,7 +55,8 @@ public class OwnTry
 				{
 					e.printStackTrace();
 				}
-				System.out.println(String.format("Thread %s is running at %d:%d:%d", this.threadName, LocalDateTime.now().getMinute(), LocalDateTime.now().getSecond(),LocalDateTime.now().getNano()));
+				System.out.println(String.format("Thread %s is running at %d:%d:%d", this.threadName, LocalDateTime.now().getMinute(), LocalDateTime.now().getSecond(),
+						LocalDateTime.now().getNano()));
 			}
 		}
 	}

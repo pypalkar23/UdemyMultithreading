@@ -6,14 +6,14 @@ public class Main
 {
 	public static void main(String[] args) throws InterruptedException
 	{
-     Thread thread = new Thread(new LongBlockingTask(new BigInteger("200000"),new BigInteger("200000")));
-     thread.setName("LongBlockingTask");
-     thread.start();
-     Thread.sleep(1000);
-     thread.interrupt();
-     Thread thread1 = new Thread(new SleepingThread());
-     thread1.start();
-     thread1.interrupt();
+		Thread thread = new Thread(new LongBlockingTask(new BigInteger("200000"), new BigInteger("200000")));
+		thread.setName("LongBlockingTask");
+		thread.start();
+		Thread.sleep(1000);
+		thread.interrupt();
+		Thread thread1 = new Thread(new SleepingThread());
+		thread1.start();
+		thread1.interrupt();
 	}
 
 	public static class LongBlockingTask implements Runnable
@@ -27,8 +27,6 @@ public class Main
 			this.base = base;
 			this.power = power;
 		}
-
-
 
 		public BigInteger pow(BigInteger base, BigInteger power)
 		{
@@ -54,7 +52,6 @@ public class Main
 		{
 			System.out.println(base + "*" + power + " is " + pow(base, power));
 		}
-
 	}
 
 	private static class SleepingThread implements Runnable

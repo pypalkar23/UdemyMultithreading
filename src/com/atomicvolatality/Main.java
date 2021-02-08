@@ -2,84 +2,107 @@ package com.atomicvolatality;
 
 import java.util.Random;
 
-public class Main {
-    static class Metrics {
-        private long count;
-        //long and double assign ops are not atomic in java
-        private volatile double average;
+public class Main
+{
+	static class Metrics
+	{
+		private long count;
 
-        public Metrics() {
-            count = 0;
-            average = 0.0;
-        }
+		//long and double assign ops are not atomic in java
+		private volatile double average;
 
-        public synchronized void addSample(long sample) {
-            double currentSum = average * count;
-            count++;
-            average = (currentSum + sample) / count;
-        }
+		public Metrics()
+		{
+			count = 0;
+			average = 0.0;
+		}
 
-        public double getAverage() {
-            return average;
-        }
-    }
+		public synchronized void addSample(long sample)
+		{
+			double currentSum = average * count;
+			count++;
+			average = (currentSum + sample) / count;
+		}
 
-    static class BusinessThread extends Thread {
-        Metrics metrics;
-        Random random;
+		public double getAverage()
+		{
+			return average;
+		}
+	}
 
-        public BusinessThread(Metrics metrics) {
-            this.metrics = metrics;
-            random = new Random();
-        }
+	static class BusinessThread extends Thread
+	{
+		Metrics metrics;
 
-        @Override
-        public void run() {
-            while (true) {
-                long start = System.currentTimeMillis();
-                try {
-                    Thread.sleep(random.nextInt(10));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+		Random random;
 
-                long end = System.currentTimeMillis();
-                this.metrics.addSample(end - start);
-            }
-        }
-    }
+		public BusinessThread(Metrics metrics)
+		{
+			this.metrics = metrics;
+			random = new Random();
+		}
 
-    static class MetricsPrinter extends Thread {
-        Metrics metrics;
-        Random random;
+		@Override
+		public void run()
+		{
+			while (true)
+			{
+				long start = System.currentTimeMillis();
+				try
+				{
+					Thread.sleep(random.nextInt(10));
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 
-        public MetricsPrinter(Metrics metrics) {
-            this.metrics = metrics;
-            random = new Random();
-        }
+				long end = System.currentTimeMillis();
+				this.metrics.addSample(end - start);
+			}
+		}
+	}
 
-        @Override
-        public void run() {
-            while (true) {
-                long start = System.currentTimeMillis();
-                try {
-                    Thread.sleep(random.nextInt(1000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+	static class MetricsPrinter extends Thread
+	{
+		Metrics metrics;
 
-                System.out.println(this.metrics.getAverage());
-            }
-        }
-    }
+		Random random;
 
-    public static void main(String[] args) {
-        Metrics metrics = new Metrics();
-        BusinessThread thread1 = new BusinessThread(metrics);
-        BusinessThread thread2 = new BusinessThread(metrics);
-        MetricsPrinter printer = new MetricsPrinter(metrics);
-        thread1.start();
-        thread2.start();
-        printer.start();
-    }
+		public MetricsPrinter(Metrics metrics)
+		{
+			this.metrics = metrics;
+			random = new Random();
+		}
+
+		@Override
+		public void run()
+		{
+			while (true)
+			{
+				long start = System.currentTimeMillis();
+				try
+				{
+					Thread.sleep(random.nextInt(1000));
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+
+				System.out.println(this.metrics.getAverage());
+			}
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		Metrics metrics = new Metrics();
+		BusinessThread thread1 = new BusinessThread(metrics);
+		BusinessThread thread2 = new BusinessThread(metrics);
+		MetricsPrinter printer = new MetricsPrinter(metrics);
+		thread1.start();
+		thread2.start();
+		printer.start();
+	}
 }

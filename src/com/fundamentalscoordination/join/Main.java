@@ -37,7 +37,7 @@ public class Main
 			}
 			else
 			{
-				System.out.println(String.format("Factorial of %d is in still progress hence interrupting result:%d", inputNumbers.get(i),factorialThread.getResult()));
+				System.out.println(String.format("Factorial of %d is in still progress hence interrupting result:%d", inputNumbers.get(i), factorialThread.getResult()));
 				factorialThread.interrupt();
 
 			}
@@ -71,10 +71,11 @@ public class Main
 
 			for (long i = n; i > 0; i--)
 			{
-			    if(this.isInterrupted()){
-			        System.out.println(String.format("Thread %s is interrupted",this.getName()));
-			        return BigInteger.ONE;
-                }
+				if (this.isInterrupted())
+				{
+					System.out.println(String.format("Thread %s is interrupted", this.getName()));
+					return BigInteger.ONE;
+				}
 				tempResult = tempResult.multiply(new BigInteger(Long.toString(i)));
 			}
 
