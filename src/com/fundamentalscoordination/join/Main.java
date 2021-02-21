@@ -35,7 +35,7 @@ public class Main
 			{
 				System.out.println("Factorial of " + inputNumbers.get(i) + " is " + factorialThread.getResult());
 			}
-			else
+			else//if not finished at the time of joining
 			{
 				System.out.println(String.format("Factorial of %d is in still progress hence interrupting result:%d", inputNumbers.get(i), factorialThread.getResult()));
 				factorialThread.interrupt();

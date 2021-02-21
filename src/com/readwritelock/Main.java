@@ -67,6 +67,9 @@ public class Main
 		private static TreeMap<Integer, Integer> inventoryMap = new TreeMap<>();
 
 		//private static ReentrantLock lock = new ReentrantLock();
+		/*Advantage of having seperate locks(ReentrantReadWriteLock) for read and write is Even though a write operation wont allow other writes/reads,the read operation allows
+		other reads as well. In contrast to traditional lock(ReentrantLock) which wont other read/writes irrespective of operation of the current thread locking the object.*/
+
 		private static ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
 		private Lock readLock = readWriteLock.readLock();
